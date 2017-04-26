@@ -10,7 +10,7 @@ const APP_ID = "Put your APP_ID here";
 const API_KEY = "Put your API_KEY here";
 const MODEL = "Put your MODEL here";
 
-// Default configuration of the hardware
+// Default configuration of the sleep pollers
 const DEFAULT_POLLFREQ1 = 172800;
 const DEFAULT_POLLFREQ2 = 86400
 const DEFAULT_POLLFREQ3 = 18000;
@@ -155,7 +155,7 @@ HTML_ROOT <- @"
 <html>
 
 <head>
-    <title>Environment Data</title>
+    <title>impExplorer for Conctr</title>
     <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <style>
@@ -170,7 +170,7 @@ HTML_ROOT <- @"
 
 <body>
     <div class='container'>
-        <h2 class='text-center'>User Settings</h2>
+        <h2 class='text-center'>impExplorer Settings</h2>
         <br>
         <div class='controls'>
             <div class='update-button'>

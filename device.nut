@@ -11,7 +11,7 @@
 #require "conctr.device.class.nut:1.0.0"
 
 
-// Default configuration of the hardware
+// Default configuration of the sleep pollers
 const DEFAULT_POLLFREQ1 = 172800;
 const DEFAULT_POLLFREQ2 = 86400;
 const DEFAULT_POLLFREQ3 = 18000;

@@ -14,4 +14,5 @@ The impExplorer goes into deep sleep after it takes the sensor readings.
 The accelerometer is setup to wake the impExplorer when it detects a shake.
 
 There is a user configuration page hosted by the agent.
+Once you know the agent URL you can open it in a browser to configure the device
 
