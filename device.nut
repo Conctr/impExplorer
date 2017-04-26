@@ -223,7 +223,10 @@ class ImpExplorer {
         
         // RSSI doesn't get a value when offline, add it now if required
         if (reading.rssi == 0) reading.rssi = imp.getrssi();
-        if (hardware.wakereason() == WAKEREASON_BLINKUP) reading._location <- imp.scanwifinetworks();
+        // Add the location after a blinkup or new squirrel
+        if (hardware.wakereason() == WAKEREASON_BLINKUP || hardware.wakereason() == WAKEREASON_NEW_SQUIRREL) {
+            reading._location <- imp.scanwifinetworks();
+        }
         
         // Send the reading
         conctr.sendData(reading);
