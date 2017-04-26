@@ -8,7 +8,7 @@
 #require "HTS221.class.nut:1.0.0"
 #require "LPS22HB.class.nut:1.0.0"
 #require "LIS3DH.class.nut:1.3.0"
-#require "conctr.device.class.nut:1.0.0"
+// #require "conctr.device.class.nut:1.0.0"
 
 
 // Default configuration of the sleep pollers
@@ -223,6 +223,7 @@ class ImpExplorer {
         
         // RSSI doesn't get a value when offline, add it now if required
         if (reading.rssi == 0) reading.rssi = imp.getrssi();
+        if (hardware.wakereason() == WAKEREASON_BLINKUP) reading._location <- imp.scanwifinetworks();
         
         // Send the reading
         agent.send("reading", reading);
