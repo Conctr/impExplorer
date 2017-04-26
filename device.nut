@@ -8,7 +8,7 @@
 #require "HTS221.class.nut:1.0.0"
 #require "LPS22HB.class.nut:1.0.0"
 #require "LIS3DH.class.nut:1.3.0"
-// #require "conctr.device.class.nut:1.0.0"
+#require "conctr.device.class.nut:1.0.0"
 
 
 // Default configuration of the sleep pollers
@@ -226,7 +226,7 @@ class ImpExplorer {
         if (hardware.wakereason() == WAKEREASON_BLINKUP) reading._location <- imp.scanwifinetworks();
         
         // Send the reading
-        agent.send("reading", reading);
+        conctr.sendData(reading);
         
         // Determine how long to wait before sleeping
         local sleepdelay = 20;
@@ -391,6 +391,7 @@ accel.configureInterruptLatching(true);
 pressureSensor <- LPS22HB(i2cpin, LPS22HB_ADDR);
 tempHumid <- HTS221(i2cpin);
 tempHumid.setMode(HTS221_MODE.ONE_SHOT, 7);
+conctr <- Conctr({"sendLoc": false});
 
 // Start the application
 impExplorer <- ImpExplorer();

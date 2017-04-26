@@ -82,9 +82,6 @@ class ImpExplorer {
             context.send(200, "OK");
         }.bindenv(this));
 
-        // Register the function to handle data messages from the device
-        device.on("reading", postReading.bindenv(this));        
-
         // Register the request-for-config message
         device.on("config", sendConfig.bindenv(this));      
 
@@ -117,24 +114,6 @@ class ImpExplorer {
         }
     }
 
-
-    // function that sends data to Conctr
-    // 
-    // @param     reading - the sensor readings to be posted
-    // @returns    none - 
-    // 
-    function postReading(reading) {
-        
-        _conctr.sendData(reading, function(err, response) {
-            if (err) {
-                server.error("Conctr::sendData: " + err);
-            } else {
-                server.log("Readings sent to Conctr. Status code: " + response.statusCode);
-            }
-        }.bindenv(this));
-        
-    }
-    
 
     // function that sends the config to device
     // 
