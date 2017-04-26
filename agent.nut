@@ -314,6 +314,7 @@ HTML_ROOT <- @"
 // Prepare the prerequisite classes
 rocky <- Rocky();
 conctr <- Conctr(APP_ID, API_KEY, MODEL);
+conctr._DEBUG = true;
 
 // Start the application
 impExplorer <- ImpExplorer(conctr, rocky);
