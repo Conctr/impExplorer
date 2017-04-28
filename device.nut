@@ -19,7 +19,8 @@ const DEFAULT_POLLFREQ4 = 3600;
 const DEFAULT_POLLFREQ5 = 900;
 
 // Constants
-const LPS22HB_ADDR = 0xB8;
+const LPS22HB_ADDR_IE = 0xB8; // Imp explorer
+const LPS22HB_ADDR_ES = 0xBE; // Sensor node
 const LIS3DH_ADDR = 0x32;
 const POLL_TIME = 900;
 const VOLTAGE_VARIATION = 0.1;
@@ -103,7 +104,7 @@ class ImpExplorer {
                 config[k] <- v;
                 dbg += k + " = " + v + ", ";
             }
-            /* if (DEBUG) */ server.log(dbg);
+            if (DEBUG) server.log(dbg);
             
             if (config.tapEnabled) {
                 accel.configureClickInterrupt(true, LIS3DH.DOUBLE_CLICK, config.tapSensitivity, 15, 10, 300);
@@ -183,7 +184,6 @@ class ImpExplorer {
         // Read the battery voltage
         if (hardwareType == HardwareType.environmentSensor) {
             reading.battery = getBattVoltage();
-            if (DEBUG) server.log(reading.battery);
         } else {
             reading.battery = 0;
         }
@@ -359,8 +359,10 @@ imp.setsendbuffersize(8096);
 // Checks hardware type
 if ("pinW" in hardware) {
     hardwareType <- HardwareType.environmentSensor;
+    // server.log("This is an Environmental Sensor")
 } else {
     hardwareType <- HardwareType.impExplorer;
+    // server.log("This is an impExplorer")
 }
 
 // Configures the pins depending on hardware type
@@ -391,7 +393,7 @@ accel <- LIS3DH(i2cpin, LIS3DH_ADDR);
 accel.setDataRate(100);
 accel.configureClickInterrupt(true, LIS3DH.DOUBLE_CLICK, 2, 15, 10, 300);
 accel.configureInterruptLatching(true);
-pressureSensor <- LPS22HB(i2cpin, LPS22HB_ADDR);
+pressureSensor <- LPS22HB(i2cpin, hardwareType == HardwareType.environmentSensor ? LPS22HB_ADDR_ES : LPS22HB_ADDR_IE);
 tempHumid <- HTS221(i2cpin);
 tempHumid.setMode(HTS221_MODE.ONE_SHOT, 7);
 conctr <- Conctr({"sendLoc": false});
